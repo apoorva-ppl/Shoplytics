@@ -1,4 +1,4 @@
-# (Shoplytics)E-commerce Analytics with PostgreSQL
+# Shoplytics — E-commerce Analytics with PostgreSQL
 
 An end-to-end SQL analytics project on a simulated online retailer: a normalized
 schema, a procedurally generated dataset (~5K customers, ~14K orders, ~57K line
@@ -19,6 +19,38 @@ yourself. No setup required, and nothing is sent to a server.
 > `SELECT ... GROUP BY`, but window functions, recursive CTEs, RFM scoring,
 > cohort triangles, and a materialized view backed by a PL/pgSQL function —
 > against data that behaves like a real business (seasonality, growth, churn).
+
+---
+
+## Architecture
+
+```mermaid
+graph TD
+    A[Shoplytics] --> B[Project Files]
+    A --> C[PostgreSQL]
+
+    B --> B1[analysis/]
+    B --> B2[data/]
+    B --> B3[schema/]
+    B --> B4[functions/]
+    B --> B5[web/]
+
+    C --> C1["Docker container"]
+    C1 --> C2["shop schema — 8 tables"]
+
+    A --> D["GitHub: apoorva-ppl/Shoplytics"]
+```
+
+- **Project files** are organized by concern — SQL analyses, seed data
+  generators, schema DDL, and PL/pgSQL functions each live in their own
+  directory, plus a `web/` layer for the interactive dashboard.
+- **PostgreSQL** runs in a Docker container and hosts the `shop` schema
+  (8 tables), keeping the environment reproducible and disposable.
+- The **`web/` layer** compiles to a static site backed by PGlite/WASM, so the
+  live dashboard ships a real Postgres instance to the browser rather than
+  proxying queries through a server.
+- Everything is version-controlled and published at
+  [`apoorva-ppl/Shoplytics`](https://github.com/apoorva-ppl/Shoplytics).
 
 ---
 
@@ -207,7 +239,7 @@ ancestor.
 ## Repository structure
 
 ```
-sql-ecommerce-analytics/
+Shoplytics/
 ├── README.md
 ├── run_all.sql                      # One-shot build: schema -> data -> views/functions
 ├── schema/
@@ -230,6 +262,7 @@ sql-ecommerce-analytics/
 │   ├── 08_yoy_growth.sql
 │   ├── 09_running_totals_pareto.sql
 │   └── 10_recursive_category_tree.sql
+├── web/                              # Interactive dashboard + PGlite/WASM SQL playground
 └── docs/
     └── ER_diagram.md
 ```
