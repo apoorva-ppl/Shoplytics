@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Postgres dumps / local artifacts
+*.dump
+*.backup
+*.log
+
+# CSV exports of query results (regenerate from SQL)
+exports/
+
+# local test artifacts
+web/node_modules/
