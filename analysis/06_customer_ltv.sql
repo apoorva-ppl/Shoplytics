@@ -1,5 +1,6 @@
 -- =============================================================================
 -- 06. Customer Lifetime Value (LTV) & order behavior
+-- GOAL :-How much does a customer spend over their lifetime, and how does this differ by acquisition channel?
 -- =============================================================================
 -- Business question:
 --   What does the spend distribution look like? Average order value (AOV),
