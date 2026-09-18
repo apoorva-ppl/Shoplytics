@@ -11,7 +11,7 @@ SET search_path TO shop, public;
 -- v_order_item_revenue : one row per order_item, with revenue/cost/return flags
 -- already computed. The single source of truth for "what is a sale worth?"
 -- -----------------------------------------------------------------------------
-CREATE OR REPLACE VIEW v_order_item_revenue AS
+CREATE OR REPLACE VIEW v_order_item_revenue AS  
 SELECT
     oi.order_item_id,
     oi.order_id,
