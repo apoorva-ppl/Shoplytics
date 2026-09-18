@@ -10,7 +10,7 @@
 -- =============================================================================
 
 SET search_path TO shop, public;
-
+--Calculate product revenue
 WITH product_revenue AS (
     SELECT
         p.product_id,
