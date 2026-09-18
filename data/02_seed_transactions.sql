@@ -15,8 +15,8 @@
 --   * Return rate is higher for Electronics and Apparel.
 -- =============================================================================
 
-SET search_path TO shop, public;
-SELECT setseed(0.17);
+SET search_path TO shop, public; --Use shop tables without writing shop. every time.
+SELECT setseed(0.17); --Makes the random generation reproducible,s.t. synthetic dataset isn't changing wildly every time you rebuild it.
 
 -- -----------------------------------------------------------------------------
 -- Customers (5,000)
