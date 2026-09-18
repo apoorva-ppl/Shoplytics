@@ -49,7 +49,8 @@ SELECT
     realized_revenue,
     ROUND(100.0 * returned_revenue / NULLIF(net_revenue, 0), 2)          AS return_rate_pct,
     ROUND(100.0 * (realized_revenue - cogs) / NULLIF(realized_revenue,0), 2)
-                                                                          AS gross_margin_pct,
+    
+    --3-month rolling avg                                                                    AS gross_margin_pct,
     ROUND(AVG(realized_revenue) OVER (
               ORDER BY month
               ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2)               AS rev_3mo_avg,
