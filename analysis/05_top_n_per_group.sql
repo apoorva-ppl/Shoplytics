@@ -9,7 +9,7 @@
 -- =============================================================================
 
 SET search_path TO shop, public;
-
+--Calculate product revenue
 WITH product_year_revenue AS (
     SELECT
         EXTRACT(YEAR FROM o.order_date)::INT      AS year,
@@ -24,12 +24,14 @@ WITH product_year_revenue AS (
     JOIN categories c  ON c.category_id = p.category_id
     GROUP BY 1, 2, 3, 4, 5
 ),
+    -- Rank within each category
 ranked AS (
     SELECT
         pyr.*,
         ROW_NUMBER() OVER (PARTITION BY year, category_id ORDER BY revenue DESC) AS rn
     FROM product_year_revenue pyr
 )
+    --Keep Top N
 SELECT
     year,
     category_name,
