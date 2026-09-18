@@ -54,6 +54,7 @@ SELECT setval('categories_category_id_seq', (SELECT MAX(category_id) FROM catego
 -- launch_date spread across 2020-2024.
 -- -----------------------------------------------------------------------------
 SELECT setseed(0.42);  -- reproducible randomness
+--I used a fixed random seed so the synthetic dataset remains reproducible across runs.
 
 WITH leaf_categories AS (
     SELECT category_id FROM categories
@@ -66,7 +67,7 @@ gen AS (
         ROUND( (10 + random() * 790)::numeric, 2) AS cost,
         ROUND( (1.2 + random() * 1.3)::numeric, 2) AS margin
     FROM leaf_categories lc
-    CROSS JOIN generate_series(1, 25) n
+    CROSS JOIN generate_series(1, 25) n --CROSS JOIN combines every category with every number
 )
 INSERT INTO products (sku, name, category_id, cost, list_price, launch_date)
 SELECT
