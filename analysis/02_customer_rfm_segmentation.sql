@@ -21,6 +21,7 @@ WITH analysis_date AS (
     -- "today" for this dataset = day after the last order
     SELECT MAX(order_date)::DATE + 1 AS today FROM orders
 ),
+    --for each customer calculates listed things
 customer_facts AS (
     SELECT
         c.customer_id,
