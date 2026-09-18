@@ -1,6 +1,7 @@
 -- =============================================================================
 -- PL/pgSQL function: shop.rfm_segment(r, f, m) -> text
 -- =============================================================================
+--PART 1
 -- Encapsulates the RFM segment-naming rules so they live in ONE place and can
 -- be reused across queries, dashboards, and the materialized view below.
 --
@@ -38,8 +39,10 @@ $$;
 -- Materialized view that pre-computes RFM for every customer using the
 -- function above. Refresh nightly in production: REFRESH MATERIALIZED VIEW ...
 -- -----------------------------------------------------------------------------
-DROP MATERIALIZED VIEW IF EXISTS mv_customer_rfm;
+--PART 2
+DROP MATERIALIZED VIEW IF EXISTS mv_customer_rfm;  --If an old RFM materialized view exists, remove it first.
 CREATE MATERIALIZED VIEW mv_customer_rfm AS
+    --analyse date
 WITH analysis_date AS (
     SELECT MAX(order_date)::DATE + 1 AS today FROM orders
 ),
